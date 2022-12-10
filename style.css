@@ -1,0 +1,88 @@
+/* RESET AND GENERAL STYLES */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-family: Arial, Helvetica, sans-serif;
+	scroll-behavior: smooth;
+}
+
+body {
+	min-height: 100vh;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+button,
+input {
+	background: transparent;
+	cursor: pointer;
+	outline: none;
+}
+
+/* HEADER SECTION */
+.header {
+	padding: 1rem;
+}
+
+.header__h2 {
+	font-size: 2rem;
+}
+
+/* MAIN SECTION */
+.main {
+	margin: 3rem auto;
+	padding: 1rem;
+}
+
+.main__container {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.quiz {
+	box-shadow: 0 1px 3px gray;
+	padding: 2rem;
+}
+
+.quiz__question {
+	font-size: 1.5rem;
+	margin: 0.5rem auto;
+}
+
+.quiz__option {
+	border: 2px solid blue;
+	cursor: pointer;
+	font-size: 1.2rem;
+	font-weight: normal;
+	margin-bottom: 0.5rem;
+	padding: 0.5rem;
+}
+
+.selected {
+	background-color: blue;
+	color: #fff;
+}
+
+.not_selected {
+	background-color: rgb(210, 214, 248);
+	cursor: not-allowed;
+}
+/* FOOTER SECTION */
+.footer {
+	padding: 1rem;
+}
+
+.footer__h2 {
+	font-size: 1.3rem;
+	text-align: center;
+}
