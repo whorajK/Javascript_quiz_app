@@ -10,6 +10,7 @@ const QUESTIONS = [
 		answer: "Facebook",
 	},
 	{
+		id: 2,
 		q: "Which English city is known as the Steel City?",
 		op1: "Sheffield",
 		op2: "Manchester",
@@ -18,6 +19,7 @@ const QUESTIONS = [
 		answer: "Sheffield",
 	},
 	{
+		id: 3,
 		q: "The logo for luxury car maker Porsche features which animal?",
 		op1: "Jaguar",
 		op2: "Leopard",
@@ -26,6 +28,7 @@ const QUESTIONS = [
 		answer: "Horse",
 	},
 	{
+		id: 4,
 		q: "What is a young giraffe called?",
 		op1: "Calf",
 		op2: "Mare",
@@ -37,58 +40,82 @@ const QUESTIONS = [
 
 // VARIABLES
 const questionText = document.querySelector(".quiz__question");
-const op1Text = document.querySelector(".option__text1");
-const op2Text = document.querySelector(".option__text2");
-const op3Text = document.querySelector(".option__text3");
-const op4Text = document.querySelector(".option__text4");
+const option1Text = document.querySelector("#option1");
+const option2Text = document.querySelector("#option2");
+const option3Text = document.querySelector("#option3");
+const option4Text = document.querySelector("#option4");
+const scoreText = document.querySelector("#score");
+const totalText = document.querySelector("#total");
+const nextBtn = document.querySelector("#next-btn");
 
-// GENERATES QUESTIONS AND OPTIONS
-function generateQuestions(id) {
-	let generatedQuestion =
-		QUESTIONS[Math.floor(Math.random() * QUESTIONS.length)];
+let score = 0;
 
-	questionText.textContent = generatedQuestion.q;
-
-	op1Text.textContent = generatedQuestion.op1;
-	op2Text.textContent = generatedQuestion.op2;
-	op3Text.textContent = generatedQuestion.op3;
-	op4Text.textContent = generatedQuestion.op4;
-
-	getUserSelection();
+// START QUIZ
+function start() {
+	generateQuestion();
 }
 
-function getUserSelection() {
-	op1Text.addEventListener("click", (e) => {
-		op1Text.classList.add("selected");
+// GENERATE QUESTION AND POPULATE OPTIONS
+function generateQuestion(id) {
+	console.log(QUESTIONS);
+	questionText.textContent = question.q;
 
-		op2Text.classList.add("not_selected");
-		op3Text.classList.add("not_selected");
-		op4Text.classList.add("not_selected");
+	option1Text.textContent = question.op1;
+	option2Text.textContent = question.op2;
+	option3Text.textContent = question.op3;
+	option4Text.textContent = question.op4;
+
+	getUserSelection(question);
+}
+
+// GET USER SELECTION
+function getUserSelection(question) {
+	option1Text.addEventListener("click", (e) => {
+		if (option1Text.textContent == question.answer) {
+			option1Text.classList.add("correct");
+			score++;
+			scoreText.textContent = `Score: ${score}`;
+		} else {
+			option1Text.classList.add("incorrect");
+			return;
+		}
 	});
 
-	op2Text.addEventListener("click", (e) => {
-		op2Text.classList.add("selected");
-
-		op1Text.classList.add("not_selected");
-		op3Text.classList.add("not_selected");
-		op4Text.classList.add("not_selected");
+	option2Text.addEventListener("click", (e) => {
+		if (option2Text.textContent == question.answer) {
+			option2Text.classList.add("correct");
+			score++;
+			scoreText.textContent = `Score: ${score}`;
+		} else {
+			option2Text.classList.add("incorrect");
+			return;
+		}
 	});
 
-	op3Text.addEventListener("click", (e) => {
-		op3Text.classList.add("selected");
-
-		op2Text.classList.add("not_selected");
-		op1Text.classList.add("not_selected");
-		op4Text.classList.add("not_selected");
+	option3Text.addEventListener("click", (e) => {
+		if (option3Text.textContent == question.answer) {
+			option3Text.classList.add("correct");
+			score++;
+			scoreText.textContent = `Score: ${score}`;
+		} else {
+			option3Text.classList.add("incorrect");
+			return;
+		}
 	});
 
-	op4Text.addEventListener("click", (e) => {
-		op4Text.classList.add("selected");
-
-		op2Text.classList.add("not_selected");
-		op3Text.classList.add("not_selected");
-		op1Text.classList.add("not_selected");
+	option4Text.addEventListener("click", (e) => {
+		if (option4Text.textContent == question.answer) {
+			option4Text.classList.add("correct");
+			score++;
+			scoreText.textContent = `Score: ${score}`;
+		} else {
+			option4Text.classList.add("incorrect");
+			return;
+		}
 	});
 }
 
-generateQuestions();
+// GENERATE NEXT QUESTION
+nextBtn.addEventListener("click", generateQuestion);
+
+start();
