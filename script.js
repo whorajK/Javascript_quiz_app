@@ -16,7 +16,30 @@ const quizData = [
 		d: "Zabimaru  ",
 		answer: "c",
 	},
-
+	{
+		question: "Donquixote Doflamingo's devil fruit name is ?",
+		a: "Gura Gura nomi",
+		b: "Gomu Gomu nomi",
+		c: "Ito Ito nomi",
+		d: "Mera Mera nomi",
+		answer: "c",
+	},
+	{
+		question: "Who is the author of the manga 'Attack on titan' ?",
+		a: "Eiichiro Oda",
+		b: "Masashi Kishimoto",
+		c: "Rumiko Takahashi",
+		d: "Hajime Isayama",
+		answer: "d",
+	},
+	{
+		question: "Which one of the following anime is known as the big three ?",
+		a: "Bleach",
+		b: "Reincarnated as a slime",
+		c: "Mushouko Tensei",
+		d: "Blue Lock",
+		answer: "a",
+	},
 	{
 		question: "Who is the captain of beast pirates in the anime One piece ?",
 		a: "Big Mom",
@@ -24,6 +47,38 @@ const quizData = [
 		c: "Monkey D Garp",
 		d: "Kaido",
 		answer: "d",
+	},
+	{
+		question: "Which was the first anime to be nominated for oscar ?",
+		a: "Your Name",
+		b: "Spirited Away",
+		c: "A silent voice",
+		d: "Neon Genesis",
+		answer: "b",
+	},
+	{
+		question: "World's longest running anime is ?",
+		a: "Sazae-san",
+		b: "One piece",
+		c: "Pokemon",
+		d: "Dragon ball",
+		answer: "a",
+	},
+	{
+		question: "Haruichi Furudate created what series ?",
+		a: "Berserk",
+		b: "Blue lock",
+		c: "Kuroko no basuke",
+		d: "Haikyuu",
+		answer: "d",
+	},
+	{
+		question: "Which is the most watched anime in Asia as of 2022 ?",
+		a: "Attack on titan",
+		b: "One piece",
+		c: "Pokemon",
+		d: "Dragon ball",
+		answer: "a",
 	},
 ];
 
@@ -88,8 +143,12 @@ nextBtn.addEventListener("click", () => {
 			loadQuizData();
 		} else {
 			document.querySelector(".quiz_wrapper").innerHTML = `
-            <h2>You finished the quiz</h2>
+           
+			<h2 class= "title">You finished the quiz</h2>
+			<h3 class = "subtitle">You answered ${score}/${quizData.length}</h3>
             <button onclick= "location.reload()">Restart</button>`;
+
+			document.querySelector(".quiz_wrapper").classList.add("over");
 		}
 	}
 });

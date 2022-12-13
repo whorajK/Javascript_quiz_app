@@ -36,10 +36,28 @@ li {
 	list-style: none;
 }
 
+/* UTITLITY CLASSES */
+.title {
+	margin-bottom: 1rem;
+}
+
+.subtext {
+	opacity: 0.85;
+	margin-bottom: 1rem;
+}
+
+.over {
+	padding: 3rem;
+}
+
 /* HEADER SECTION */
 .header {
 	padding: 1rem 2rem;
 	box-shadow: 0 1px 3px black;
+}
+
+.header__title {
+	font-size: 2rem;
 }
 
 /* MAIN SECTION */
@@ -94,10 +112,7 @@ li {
 /* FOOTER SECTION */
 .footer {
 	background-color: var(--bg-2);
-	bottom: 0;
 	padding: 1rem;
-	position: absolute;
-	width: 100%;
 }
 
 .footer__h2 {
@@ -108,6 +123,10 @@ li {
 @media screen and (max-width: 460px) {
 	.header__title {
 		text-align: center;
+	}
+
+	.main__container {
+		min-height: 90vh;
 	}
 
 	.question_text {
