@@ -1,140 +1,95 @@
-// QUESTIONS
-const QUESTIONS = [
+// QUIZ DATA
+const quizData = [
 	{
-		id: 0,
-		q: "What was Meta Platforms Inc formerly known as?",
-		a: [
-			{ op1: "IBM" },
-			{ op2: "Google" },
-			{ op3: "Infosys" },
-			{ op4: "Facebook" },
-			{ isCorrect: "Facebook" },
-		],
+		question: "Who is the protagonist of the anime series Dragon Ball ?",
+		a: "Kurosaki Ichigo",
+		b: "Goku",
+		c: "Uzumaki Naruto",
+		d: "Monkey D Luffy",
+		answer: "b",
 	},
 	{
-		id: 1,
-		q: "Which English city is known as the Steel City?",
-		a: [
-			{ op1: "Sheffield" },
-			{ op2: "Manchester" },
-			{ op3: "London" },
-			{ op4: "Nottingham" },
-			{ isCorrect: "Sheffield" },
-		],
+		question: "What is the name of Kurosaki Ichigo's zanpaktu ?",
+		a: "Benihime",
+		b: "Hyorinmaru",
+		c: "Zangetsu ",
+		d: "Zabimaru  ",
+		answer: "c",
 	},
+
 	{
-		id: 2,
-		q: "The logo for luxury car maker Porsche features which animal?",
-		a: [
-			{ op1: "Jaguar" },
-			{ op2: "Leopard" },
-			{ op3: "Horse" },
-			{ op4: "Falcon" },
-			{ isCorrect: "Horse" },
-		],
-	},
-	{
-		id: 3,
-		q: "What is a young giraffe called?",
-		a: [
-			{ op1: "Calf" },
-			{ op2: "Mare" },
-			{ op3: "Joey" },
-			{ op4: "ram" },
-			{ isCorrect: "Calf" },
-		],
+		question: "Who is the captain of beast pirates in the anime One piece ?",
+		a: "Big Mom",
+		b: "Shanks",
+		c: "Monkey D Garp",
+		d: "Kaido",
+		answer: "d",
 	},
 ];
 
 // VARIABLES
-const questionText = document.querySelector(".quiz__question");
-const option1Text = document.querySelector("#option1");
-const option2Text = document.querySelector("#option2");
-const option3Text = document.querySelector("#option3");
-const option4Text = document.querySelector("#option4");
-const scoreText = document.querySelector("#score");
-const totalText = document.querySelector("#total");
+const questionText = document.querySelector("#question-text");
+const optionA_text = document.querySelector("#a-text");
+const optionC_text = document.querySelector("#c-text");
+const optionB_text = document.querySelector("#b-text");
+const optionD_text = document.querySelector("#d-text");
+const optionEls = document.querySelectorAll(".option");
 
+const nextBtn = document.querySelector("#next-btn");
+
+let currentQuiz = 0;
 let score = 0;
-totalText.textContent = `Total Points : ${QUESTIONS.length}`;
-// ITERATES THROUGH QUESTIONS
-function iterate(id) {
-	// populate question text
-	questionText.textContent = QUESTIONS[id].q;
 
-	// populate option text
-	option1Text.textContent = QUESTIONS[id].a[0].op1;
-	option2Text.textContent = QUESTIONS[id].a[1].op2;
-	option3Text.textContent = QUESTIONS[id].a[2].op3;
-	option4Text.textContent = QUESTIONS[id].a[3].op4;
+// GENERATE QUESTION
+loadQuizData();
 
-	getUserSelect();
+function loadQuizData() {
+	deselect();
 
-	// get user selection
-	function getUserSelect() {
-		let selected;
+	let currentQuestion = quizData[currentQuiz];
+	questionText.textContent = currentQuestion.question;
 
-		option1Text.addEventListener("click", () => {
-			option1Text.classList.add("selected");
-			selected = option1Text.textContent;
-			check(selected);
-		});
-
-		option2Text.addEventListener("click", () => {
-			option2Text.classList.add("selected");
-			selected = option2Text.textContent;
-			check(selected);
-		});
-
-		option3Text.addEventListener("click", () => {
-			option3Text.classList.add("selected");
-			selected = option3Text.textContent;
-			check(selected);
-		});
-
-		option4Text.addEventListener("click", () => {
-			option4Text.classList.add("selected");
-			selected = option4Text.textContent;
-			check(selected);
-		});
-	}
-
-	// console.log(score);
-
-	// evaluate options
-	function check(selected) {
-		if (selected == QUESTIONS[id].a[4].isCorrect && score < QUESTIONS.length) {
-			score++;
-			console.log(score);
-			scoreText.textContent = `Score: ${score}`;
-			removeSelection();
-		} else {
-			scoreText.textContent = `Score: ${score}`;
-			removeSelection();
-		}
-	}
-
-	// remove selections
-	function removeSelection() {
-		setInterval(() => {
-			option1Text.classList.remove("selected");
-			option2Text.classList.remove("selected");
-			option3Text.classList.remove("selected");
-			option4Text.classList.remove("selected");
-		}, 1000);
-
-		loadNext();
-	}
-
-	// LOAD NEXT QUESTION
-	function loadNext() {
-		setTimeout(() => {
-			if (id < QUESTIONS.length) {
-				QUESTIONS[id] = id++;
-				iterate(id);
-			}
-		}, 500);
-	}
+	optionA_text.textContent = currentQuestion.a;
+	optionB_text.textContent = currentQuestion.b;
+	optionC_text.textContent = currentQuestion.c;
+	optionD_text.textContent = currentQuestion.d;
 }
 
-iterate(0);
+// REGISTER USER SELECTION
+function getUserSelection() {
+	let selection = undefined;
+
+	optionEls.forEach((optionEl) => {
+		if (optionEl.checked) {
+			selection = optionEl.id;
+		}
+	});
+
+	return selection;
+}
+
+// DESELECT
+function deselect() {
+	optionEls.forEach((optionEl) => {
+		optionEl.checked = false;
+	});
+}
+
+// LOAD NEXT QUESTION
+nextBtn.addEventListener("click", () => {
+	const answer = getUserSelection();
+
+	if (answer) {
+		if (answer === quizData[currentQuiz].answer) {
+			score++;
+		}
+		currentQuiz++;
+		if (currentQuiz < quizData.length) {
+			loadQuizData();
+		} else {
+			document.querySelector(".quiz_wrapper").innerHTML = `
+            <h2>You finished the quiz</h2>
+            <button onclick= "location.reload()">Restart</button>`;
+		}
+	}
+});
